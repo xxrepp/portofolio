@@ -2,37 +2,49 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <title>REP Portfolio</title>
     <style>
-      /* Smooth scrolling using CSS */
+      /* Global Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
       html {
         scroll-behavior: smooth;
       }
+
       body {
-        margin: 0;
         font-family: "Roboto", sans-serif;
         background-color: #032b44;
         color: #fff;
+        scroll-behavior: smooth;
         transition: background-color 0.5s ease-in-out;
       }
-      /* Classes to switch the background color */
+
+      /* Background color switching */
       body.bg1 {
-        background-color: #032b44;
-      }
-      body.bg2 {
         background-color: #243b53;
       }
 
-      section {
-        min-height: 100vh;
+      body.bg2 {
+        background-color: #032b44;
+      }
+
+      /* Flex container for centering content */
+      .flex-center {
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-direction: column;
+        min-height: 100vh;
         text-align: center;
       }
 
-      /* Navigation */
+      /* Navigation Styles */
       nav {
         display: flex;
         justify-content: space-between;
@@ -44,48 +56,66 @@
         right: 0;
         z-index: 1;
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+        font-size: 1em;
       }
+
       nav .group {
         display: flex;
       }
+
       nav a {
         color: #fff;
         margin-right: 15px;
         text-decoration: none;
       }
 
-      /* Profile Section */
-      #intro {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        background-color: #032b44;
-        padding: 2em;
+      #socials a {
+        font-size: 1.4em;
       }
+
+      /* Section Styles */
+      section {
+        padding: 50px;
+      }
+
+      section h1 {
+        font-size: 3em;
+        margin-bottom: 20px;
+      }
+
+      /* Profile Section */
+      .typing {
+        border-right: 2px solid #fff;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
       #intro img {
         border-radius: 50%;
         width: 200px;
         height: 200px;
         margin-bottom: 20px;
-        box-shadow: 0px 2px 4px rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 5px rgba(192, 192, 192, 0.3), 0 0 10px rgba(192, 192, 192, 0.2), 0 0 15px rgba(192, 192, 192, 0.1);
       }
+
       #intro h1 {
         font-size: 2.5em;
         color: #6a82fb;
-        margin: 0;
       }
+
       #intro h2 {
         font-size: 2em;
         margin: 0.5em 0;
       }
+
       #intro p {
         color: #c0c0c0;
         margin-bottom: 2em;
         font-size: 1.2em;
         max-width: 600px;
       }
+
+      /* Download CV Button */
       .btn-download {
         background: linear-gradient(135deg, #6a82fb, #fc5c7d);
         color: #ffffff;
@@ -96,49 +126,73 @@
         font-size: 18px;
         transition: background 0.3s ease;
       }
+
       .btn-download:hover {
         background: linear-gradient(135deg, #fc5c7d, #6a82fb);
       }
 
-      #projects,
-      #technologies,
-      #about {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+      /* Projects Section */
+      .project-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 columns of equal width */
+        gap: 20px; /* Adds space between cards */
+        justify-items: center; /* Centers the cards horizontally */
+      }
+
+      .card {
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 0 20px rgba(192, 192, 192, 0.4);
+        width: 500px;
+        max-width: 100%;
+        box-sizing: border-box; /* Ensures padding is included in the width */
+      }
+
+      .card img {
+        max-width: 100%;
+        border-radius: 8px;
+        margin-bottom: 10px;
+      }
+
+      .card p {
+        font-size: 1em;
+        line-height: 1.5em;
+        margin-top: 10px;
+        text-align: justify;
+        color: #cccccc;
+      }
+
+      .btn-container {
+        display: inline-block;
+        margin-top: 30px;
+        margin-bottom: 10px;
         text-align: center;
-        padding: 50px;
+      }
+
+      .source-code,
+      .live-demo {
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-size: 15px;
+        text-decoration: none;
+        color: white;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+
+      .source-code {
+        background-color: transparent;
+        border: 2px solid white;
+      }
+
+      .live-demo {
+        background: linear-gradient(135deg, #6a82fb, #fc5c7d);
       }
     </style>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Background color switching logic on scroll
-        let lastScroll = 0;
-        window.addEventListener("scroll", () => {
-          let currentScroll = window.scrollY;
-
-          document.querySelectorAll("section").forEach((section, index) => {
-            if (section.offsetTop <= currentScroll + window.innerHeight / 2 && section.offsetTop + section.offsetHeight >= currentScroll + window.innerHeight / 2) {
-              let currentSection = document.querySelector("section.current");
-              if (currentSection) {
-                currentSection.classList.remove("current");
-              }
-              section.classList.add("current");
-
-              // Add the corresponding class to the body to change the background color
-              document.body.className = `bg${(index % 2) + 1}`; // Toggle between bg1 and bg2
-            }
-          });
-
-          lastScroll = currentScroll;
-        });
-      });
-    </script>
   </head>
-  <body class="bg1">
-    <!-- Adding an ID for the top of the page -->
-    <div id="top"></div>
 
+  <body class="bg1">
+    <!-- Navigation -->
     <nav>
       <div class="group" id="home">
         <a href="#top">REP Portfolio</a>
@@ -155,35 +209,110 @@
     </nav>
 
     <!-- Profile Section (Intro) -->
-    <section id="intro">
-      <div class="container">
-        <img src="assets/rep.jpg" alt="Aldi Kurniawan" />
-        <h1>Hello, I'm Aldi Kurniawan</h1>
-        <h2>Fullstack Developer</h2>
-        <p>Detail-oriented and hardworking with some critical and analytical thinking skills. Seeking adventure and growth</p>
-        <a href="your-cv-link.pdf" class="btn-download">Download CV</a>
-      </div>
+    <section id="intro" class="flex-center">
+      <img src="assets/rep.jpg" alt="Profile picture of Aldi Kurniawan" />
+      <h1 id="typing-effect"></h1>
+      <h2>Fullstack Developer</h2>
+      <p>Detail-oriented and hardworking with critical and analytical thinking skills. Seeking adventure and growth.</p>
+      <a href="your-cv-link.pdf" class="btn-download">Download CV</a>
     </section>
 
     <!-- Projects Section -->
-    <section id="section2">
-      <div id="projects">
-        <h1>Projects</h1>
+    <section id="section2" class="flex-center">
+      <h1>Projects</h1>
+      <div class="project-container">
+        <!-- Card 1 -->
+        <div class="card">
+          <img src="assets/project1.png" alt="Project 1" />
+          <h2>Project 1</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat.
+          </p>
+          <div class="btn-container">
+            <a href="https://github.com/rep/your-repo" class="btn source-code">Source Code</a>
+            <a href="https://your-project-link.com" class="btn live-demo">Live Demo</a>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+          <img src="assets/project2.png" alt="Project 2" />
+          <h2>Project 2</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat.
+          </p>
+          <div class="btn-container">
+            <a href="https://github.com/rep/your-repo" class="btn source-code">Source Code</a>
+            <a href="https://your-project-link.com" class="btn live-demo">Live Demo</a>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+          <img src="assets/project3.png" alt="Project 3" />
+          <h2>Project 3</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat.
+          </p>
+          <div class="btn-container">
+            <a href="https://github.com/rep/your-repo" class="btn source-code">Source Code</a>
+            <a href="https://your-project-link.com" class="btn live-demo">Live Demo</a>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Technologies Section -->
-    <section id="section3">
-      <div id="technologies">
-        <h1>Technologies</h1>
-      </div>
+    <section id="section3" class="flex-center">
+      <h1>Technologies</h1>
+      <!-- Add technologies content here -->
     </section>
 
     <!-- About Me Section -->
-    <section id="section4">
-      <div id="about">
-        <h1>About me</h1>
-      </div>
+    <section id="section4" class="flex-center">
+      <h1>About me</h1>
+      <!-- Add about me content here -->
     </section>
+
+    <!-- Script for typing animation and background color switch -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const text = "Hello, I'm Aldi Kurniawan."; // Text to type out
+        const typingElement = document.getElementById("typing-effect");
+        typingElement.classList.add("typing");
+        let index = 0;
+
+        function type() {
+          if (index < text.length) {
+            typingElement.textContent += text.charAt(index);
+            index++;
+            setTimeout(type, 125); // Adjust typing speed here
+          } else {
+            typingElement.style.borderRight = "none"; // Remove cursor after typing
+          }
+        }
+
+        type(); // Start the typing animation
+
+        // Background color switching logic
+        window.addEventListener("scroll", () => {
+          const scrollPosition = window.scrollY;
+          const sections = document.querySelectorAll("section");
+          const windowHeight = window.innerHeight / 2;
+
+          sections.forEach((section, index) => {
+            const sectionTop = section.offsetTop;
+            const sectionBottom = sectionTop + section.offsetHeight;
+
+            if (sectionTop <= scrollPosition + windowHeight && sectionBottom >= scrollPosition + windowHeight) {
+              document.body.className = `bg${(index % 2) + 1}`; // Toggle between bg1 and bg2
+            }
+          });
+        });
+      });
+    </script>
   </body>
 </html>
