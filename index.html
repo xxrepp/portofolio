@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <title>REP Portfolio</title>
+    <style>
+      /* Smooth scrolling using CSS */
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: "Roboto", sans-serif;
+        background-color: #032b44;
+        color: #fff;
+        transition: background-color 0.5s ease-in-out;
+      }
+      /* Classes to switch the background color */
+      body.bg1 {
+        background-color: #032b44;
+      }
+      body.bg2 {
+        background-color: #243b53;
+      }
+      section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3em;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        padding: 1em 2em;
+        background-color: #243b53;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1;
+      }
+      nav .group {
+        display: flex;
+      }
+      nav a {
+        color: #fff;
+        margin-right: 15px;
+        text-decoration: none;
+      }
+      nav .socials a {
+        color: #ffff00;
+        margin-right: 15px;
+        text-decoration: none;
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Background color switching logic on scroll
+        let lastScroll = 0;
+        window.addEventListener("scroll", () => {
+          let currentScroll = window.scrollY;
+
+          document.querySelectorAll("section").forEach((section, index) => {
+            if (section.offsetTop <= currentScroll + window.innerHeight / 2 && section.offsetTop + section.offsetHeight >= currentScroll + window.innerHeight / 2) {
+              let currentSection = document.querySelector("section.current");
+              if (currentSection) {
+                currentSection.classList.remove("current");
+              }
+              section.classList.add("current");
+
+              // Add the corresponding class to the body to change the background color
+              document.body.className = `bg${(index % 2) + 1}`; // Toggle between bg1 and bg2
+            }
+          });
+
+          lastScroll = currentScroll;
+        });
+      });
+    </script>
+  </head>
+  <body class="bg1">
+    <!-- Adding an ID for the top of the page -->
+    <div id="top"></div>
+
+    <nav>
+      <div class="group">
+        <a href="#top">REP Portfolio</a>
+      </div>
+      <div class="group">
+        <a href="#section2">Projects</a>
+        <a href="#section3">Technologies</a>
+        <a href="#section4">About me</a>
+      </div>
+      <div class="group" id="socials">
+        <a href="https://www.instagram.com/"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+        <a href="https://github.com/"><i class="fa fa-github" aria-hidden="true"></i></a>
+      </div>
+    </nav>
+    <section id="section1">Home</section>
+    <section id="section2">Projects</section>
+    <section id="section3">Technologies</section>
+    <section id="section4">About me</section>
+  </body>
+</html>

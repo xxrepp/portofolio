@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smooth Scroll Demo</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #333;
+        padding: 10px;
+        z-index: 1000;
+      }
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+      }
+      section {
+        height: 100vh;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: white;
+      }
+      .section1 {
+        background-color: #032b44;
+      }
+      .section2 {
+        background-color: #243b53;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="#" id="scrollToTop">Go to Top</a>
+    </nav>
+
+    <section class="section1">Section 1</section>
+    <section class="section2">Section 2</section>
+
+    <script>
+      function smoothScrollToTop(duration) {
+        const startPosition = window.pageYOffset;
+        const distance = startPosition;
+        let startTime = null;
+
+        function animation(currentTime) {
+          if (startTime === null) startTime = currentTime;
+          const timeElapsed = currentTime - startTime;
+          const run = ease(timeElapsed, startPosition, -distance, duration);
+
+          window.scrollTo(0, run);
+
+          if (timeElapsed < duration) requestAnimationFrame(animation);
+        }
+
+        function ease(t, b, c, d) {
+          // Easing function (easeInOutQuad)
+          t /= d / 2;
+          if (t < 1) return (c / 2) * t * t + b;
+          t--;
+          return (-c / 2) * (t * (t - 2) - 1) + b;
+        }
+
+        requestAnimationFrame(animation);
+      }
+
+      document.getElementById("scrollToTop").addEventListener("click", function (event) {
+        event.preventDefault();
+        smoothScrollToTop(500); // 2000ms = 2 seconds
+      });
+    </script>
+  </body>
+</html>
